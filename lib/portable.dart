@@ -18,7 +18,7 @@ import 'models.dart';
 /// is referenced with relative paths, so the same folder imports back with
 /// nothing lost. Nothing in here touches the browser: it works on bytes, which
 /// is what makes the round trip testable.
-library;
+
 
 /// A folder of files ready to become a `.zip` or to be imported.
 class Bundle {
@@ -134,6 +134,21 @@ Map<String, Object?> _parseSimpleYaml(List<String> lines) {
 Object _scalar(String raw) {
   final String v = raw.trim();
   if (v.startsWith('"') && v.endsWith('"') && v.length >= 2) {
+    try {
+      return jsonDecode(v);
+    } catch (_) {
+      return v.substring(1, v.length - 1);
+    }
+  }
+  if (v.contains(',')) {
+    return v
+        .split(',')
+        .map((String s) => s.trim())
+        .where((String s) => s.isNotEmpty)
+        .toList();
+  }
+  return v;
+}
 /// Parses `{id: m_1, type: image}` into a map of strings.
 Map<String, String> parseFlowMap(String raw) {
   final Map<String, String> out = <String, String>{};
@@ -658,18 +673,6 @@ Map<String, List<int>> _flatten(Bundle bundle) {
       e.key.substring(bundle.folder.length + 1): e.value,
   };
 }
-);
-    } catch (_) {
-      return v.substring(1, v.length - 1);
-    }
-  }
-  if (v.contains(',')) {
-    return v
-        .split(',')
-        .map((String s) => s.trim())
-        .where((String s) => s.isNotEmpty)
-        .toList();
-  }
 
 bool _isEntryFile(String path) {
   final String lower = path.toLowerCase();
