@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Ink;
 import 'package:flutter/services.dart';
 import 'package:markdown/markdown.dart' as md;
 
@@ -857,6 +857,14 @@ class _Renderer {
       ),
     );
   }
+
+  /// Strips `../` so exported and in-app paths resolve identically.
+  static String _resolve(String href) {
+    final String trimmed = href.split('#').first.trim();
+    return trimmed
+        .replaceAll(RegExp(r'^(\.\./)+'), '')
+        .replaceAll(RegExp(r'^\./'), '');
+  }
 }
 
 /// Copy-to-clipboard control used inside the code card.
@@ -893,15 +901,6 @@ class _CodeCopyButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-  /// Strips `../` so exported and in-app paths resolve identically.
-  static String _resolve(String href) {
-    final String trimmed = href.split('#').first.trim();
-    return trimmed
-        .replaceAll(RegExp(r'^(\.\./)+'), '')
-        .replaceAll(RegExp(r'^\./'), '');
   }
 }
 
