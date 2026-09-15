@@ -54,6 +54,11 @@ class _BootState extends State<Boot> {
     // The brief blank frame before the intro veil takes over.
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: SizedBox.expand(),
+    );
+  }
+}
+
 /// Shown when local storage itself cannot be opened at all.
 class _BootFailure extends StatelessWidget {
   const _BootFailure({required this.message, required this.onRetry});
@@ -123,7 +128,3 @@ class _BootFailure extends StatelessWidget {
   }
 }
 
-      home: SizedBox.expand(),
-    );
-  }
-}
