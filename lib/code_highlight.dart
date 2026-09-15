@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Ink;
 
 import 'theme.dart';
 
@@ -8,7 +8,7 @@ import 'theme.dart';
 /// strings, numbers, keywords, type names and calls, which is enough to make
 /// technical notes readable. Unknown languages simply render as plain code,
 /// and the highlighter can never throw.
-library;
+
 
 enum TokenKind { plain, comment, string, number, keyword, type, call }
 
@@ -94,7 +94,55 @@ const Set<String> _keywords = <String>{
 
 const Map<String, Set<String>> _types = <String, Set<String>>{
   'dart': <String>{
-    'int', 'double', 'num', 'String', 'bool', 'List', 'Map', 'Set', 'Iterable',
+    'int', 'double', 'num', 'String', 'bool', 'List', 'Map', 'Set',
+    'Iterable', 'Future', 'Stream', 'Object', 'dynamic', 'Uint8List',
+    'DateTime', 'Duration', 'Widget', 'BuildContext',
+  },
+  'typescript': <String>{
+    'number', 'string', 'boolean', 'any', 'unknown', 'never', 'void',
+    'Array', 'Promise', 'Record', 'Partial', 'Readonly',
+  },
+  'javascript': <String>{'Number', 'String', 'Boolean', 'Array', 'Object',
+    'Promise', 'Symbol', 'BigInt', 'Function', 'Error', 'Date', 'RegExp'},
+  'python': <String>{
+    'int', 'float', 'str', 'bool', 'list', 'dict', 'set', 'tuple', 'bytes',
+    'object', 'None', 'Exception', 'self', 'cls',
+  },
+  'rust': <String>{
+    'i8', 'i16', 'i32', 'i64', 'u8', 'u16', 'u32', 'u64', 'f32', 'f64',
+    'usize', 'isize', 'String', 'Vec', 'Option', 'Result', 'Box', 'Rc',
+    'Arc', 'RefCell', 'HashMap', 'HashSet', 'Self',
+  },
+  'go': <String>{
+    'int', 'int8', 'int16', 'int32', 'int64', 'uint', 'float32', 'float64',
+    'string', 'bool', 'byte', 'rune', 'error', 'any', 'nil',
+  },
+  'c': <String>{
+    'int', 'char', 'float', 'double', 'void', 'long', 'short', 'unsigned',
+    'size_t', 'FILE', 'bool',
+  },
+  'cpp': <String>{
+    'int', 'char', 'float', 'double', 'void', 'bool', 'size_t', 'string',
+    'vector', 'map', 'set', 'unique_ptr', 'shared_ptr', 'auto', 'std',
+  },
+  'java': <String>{
+    'int', 'long', 'double', 'float', 'boolean', 'char', 'byte', 'short',
+    'String', 'Object', 'Integer', 'Long', 'Double', 'Boolean', 'List',
+    'Map', 'Set', 'Optional', 'Exception',
+  },
+  'kotlin': <String>{
+    'Int', 'Long', 'Double', 'Float', 'Boolean', 'Char', 'String', 'Any',
+    'Unit', 'Nothing', 'List', 'Map', 'Set',
+  },
+  'swift': <String>{
+    'Int', 'Double', 'Float', 'Bool', 'String', 'Character', 'Any',
+    'Array', 'Dictionary', 'Set', 'Optional', 'Self',
+  },
+  'sql': <String>{'INT', 'TEXT', 'VARCHAR', 'BOOLEAN', 'DATE', 'TIMESTAMP',
+    'FLOAT', 'DOUBLE', 'DECIMAL', 'NULL'},
+  'json': <String>{'true', 'false', 'null'},
+};
+
 /// Languages whose comments start with `#`.
 const Set<String> _hashComment = <String>{
   'bash', 'conf', 'dockerfile', 'ini', 'makefile', 'perl', 'properties',
