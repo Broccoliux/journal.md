@@ -368,8 +368,6 @@ String _cell(String value) => value
     .replaceAll('|', r'\|')
     .replaceAll(RegExp(r'\s+'), ' ')
     .trim();
-    try {
-      final Object? decoded = jsonDecode(v);
       if (decoded is String) return decoded;
 // -------------------------------------------------------------------- import
 
@@ -805,5 +803,4 @@ String mediaPath(MediaKind kind, String mime, Iterable<String> existing) {
   return 'assets/$base-$n$ext';
 }
 
-  return v;
 }
