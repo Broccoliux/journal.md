@@ -12,7 +12,7 @@ import 'voice.dart';
 /// All of it is local. Bytes come from the app's storage cache, and anything
 /// that cannot be resolved degrades into a readable placeholder rather than a
 /// broken box.
-library;
+
 
 /// A stored image, with graceful states for loading, missing and corrupt data.
 class MediaImage extends StatelessWidget {

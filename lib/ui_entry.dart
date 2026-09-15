@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart' hide Ink;
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 
 import 'app_state.dart';
 import 'markdown_editor.dart';
 import 'markdown_view.dart';
 import 'models.dart';
+import 'portable.dart';
 import 'theme.dart';
 import 'ui_attach.dart';
 import 'ui_common.dart';
@@ -257,3 +259,88 @@ class _GhostAction extends StatelessWidget {
 }
 
 //__HEADER__
+
+/// The slim bar above an entry: back, title line, edit toggle, actions.
+class EntryHeader extends StatelessWidget {
+  const EntryHeader({
+    super.key,
+    required this.entry,
+    required this.journal,
+    required this.editing,
+    required this.onToggleEdit,
+    this.onBack,
+  });
+
+  final Entry entry;
+  final Journal? journal;
+  final bool editing;
+  final VoidCallback onToggleEdit;
+  final VoidCallback? onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final Ink ink = context.ink;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        Tokens.s4,
+        Tokens.s2,
+        Tokens.s2,
+        Tokens.s2,
+      ),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: ink.line)),
+      ),
+      child: Row(
+        children: <Widget>[
+          if (onBack != null)
+            IconButton(
+              tooltip: 'Back',
+              onPressed: onBack,
+              icon: const Icon(Icons.arrow_back_rounded, size: 19),
+            ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  entry.displayTitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: AppFonts.serif,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: ink.text,
+                  ),
+                ),
+                Text(
+                  <String>[
+                    if (journal != null) journal!.name,
+                    dateTimeLabel(entry.date),
+                    'saved ${relativeTime(entry.updatedAt)}',
+                  ].join('  ·  '),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: AppFonts.mono,
+                    fontSize: 10.5,
+                    letterSpacing: 0.5,
+                    color: ink.textFaint,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _GhostAction(
+            icon: editing ? Icons.visibility_outlined : Icons.edit_outlined,
+            label: editing ? 'Read' : 'Edit',
+            accent: true,
+            onPressed: onToggleEdit,
+          ),
+          EntryMenu(entry: entry),
+        ],
+      ),
+    );
+  }
+}

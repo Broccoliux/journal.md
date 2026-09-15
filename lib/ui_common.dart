@@ -4,7 +4,7 @@ import 'theme.dart';
 
 /// Shared, small UI pieces. Everything here is used by more than one screen;
 /// nothing here wraps a single control.
-library;
+
 
 /// A tactile panel: hairline border, gentle radius, no heavy shadow.
 class Panel extends StatelessWidget {

@@ -11,7 +11,7 @@ import 'web_io.dart';
 ///
 /// Both paths end in the same place — bytes stored locally plus a markdown
 /// reference in the entry body — which is what keeps exports portable.
-library;
+
 
 /// Opens the file chooser, keeps the images and returns their references.
 ///
