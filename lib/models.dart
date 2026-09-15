@@ -6,13 +6,13 @@ import 'dart:typed_data';
 /// Everything the app persists is one of these three records. They are plain
 /// immutable Dart objects with `Map` round-tripping so the same shape can be
 /// written to local storage and to portable markdown front matter.
-library;
+
 
 final Random _rng = Random();
 
 /// Short, sortable-ish, collision-safe enough identifier.
 String newId(String prefix) {
-  final int t = DateTime.now().microsecondsSinceEpoch.toRadixString(36);
+  final String t = DateTime.now().microsecondsSinceEpoch.toRadixString(36);
   final String r = _rng.nextInt(1 << 32).toRadixString(36).padLeft(7, '0');
   return '${prefix}_$t$r';
 }
@@ -264,7 +264,7 @@ class Entry {
         if (ref != null) media.add(ref);
       }
     }
-    final DateTime? created = _parseDate(raw['createdAt']) ?? date;
+    final DateTime created = _parseDate(raw['createdAt']) ?? date;
     return Entry(
       id: _asString(raw['id'], newId('e')),
       journalId: journalId,
