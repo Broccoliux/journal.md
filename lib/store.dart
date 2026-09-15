@@ -85,7 +85,7 @@ class JournalStore {
       );
     } catch (error) {
       return JournalStore._(
-        await databaseFactoryMemory.openDatabase(name),
+        await openJournalDatabase(name),
         persistent: false,
         warning:
             'Local browser storage is unavailable, so this session is '
@@ -351,5 +351,4 @@ class JournalStore {
       throw StoreFailure(message, '$error');
     }
   }
-}
 }
