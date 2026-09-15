@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Ink;
 import 'package:flutter/services.dart';
 
 import 'markdown_view.dart';
