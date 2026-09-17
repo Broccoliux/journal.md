@@ -1,9 +1,0 @@
-arguments:
-  - export PATH="/f/tools/flutter-extract/flutter/bin:$PATH"
-  - echo "FLUTTER OK: $(flutter --version --machine 2>/dev/null | head -1 || echo MISSING)"
-
-fs: something
-tools:
-  - command: echo "PATH FIXED: $(flutter --version --machine 2>/dev/null | head -1)"
-    rewriteEnv: Something
-
