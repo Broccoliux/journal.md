@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="journal.md — a local-first personal journal. Markdown entries, images, voice notes. Everything stays in your browser.">
+  <meta name="theme-color" content="#FBFAF8">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="journal.md">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>journal.md</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Warm paper background so there is no white flash while the engine loads. */
+    html, body { margin: 0; padding: 0; height: 100%; background: #FBFAF8; }
+    #boot-splash {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: #FBFAF8;
+      font-family: Georgia, 'Times New Roman', serif; color: #26231F;
+      z-index: 1000; transition: opacity .25s ease;
+    }
+    #boot-splash .word { font-size: 30px; letter-spacing: .5px; }
+    #boot-splash .rule { width: 44px; height: 1px; background: #C9C2B6; margin-top: 18px; }
+    #boot-splash.gone { opacity: 0; pointer-events: none; }
+    @media (prefers-color-scheme: dark) {
+      html, body { background: #161514; }
+      #boot-splash { background: #161514; color: #E9E6E0; }
+      #boot-splash .rule { background: #3A3733; }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot-splash" aria-hidden="true">
+    <div class="word">journal.md</div>
+    <div class="rule"></div>
+  </div>
+  <script>
+    // Remove the HTML splash as soon as Flutter renders its first frame.
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('boot-splash');
+      if (el) {
+        el.classList.add('gone');
+        setTimeout(function () { el.remove(); }, 300);
+      }
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
